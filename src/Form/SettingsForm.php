@@ -7,6 +7,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -117,8 +118,10 @@ class SettingsForm extends ConfigFormBase {
       '#disabled' => TRUE,
     ];
     $form['channel_url'] = [
-      '#title' => $this->t('Channel URL'),
-      '#markup' => 'some url',
+      '#type' => 'textfield',
+      '#title' => $this->t('Feed URL'),
+      '#default_value' => Url::fromRoute('amazon_onsite.rss', [], ['absolute' => TRUE])->toString(),
+      '#disabled' => TRUE,
     ];
 
     return parent::buildForm($form, $form_state);

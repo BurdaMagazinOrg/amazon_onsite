@@ -75,7 +75,7 @@ class RssController extends ControllerBase {
    * Build a render array for the RSS feed.
    *
    * @return array
-   *   The render array.
+   *   An array as expected by drupal_render().
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
@@ -89,33 +89,69 @@ class RssController extends ControllerBase {
       '#link' => $config->get('website_url'),
       '#description' => $config->get('feed_description'),
       '#langcode' => $config->get('language'),
-      '#last_build_date' => 'Wed, 1 Jan 2018 20:40:47 +0000',
+      '#last_build_date' => $this->getLastBuildDate(),
       '#logo_path' => $config->get('logo_path'),
-      '#items' => $this->getItems(),
+      '#items' => $this->buildItems(),
     ];
 
     return $build;
   }
 
   /**
-   * Load entities and build a render array for item part of rss feed.
+   * Return changed timestamp of most recently changed item.
    *
-   * @return array
-   *   The render array.
+   * @return string|null
+   *   A formatted timestamp.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
+  public function getLastBuildDate() {
+    if ($items = $this->getItems()) {
+      $latest_item = reset($items);
+
+      return $this->dateFormatter->format($latest_item->getChangedTime(), 'custom', 'D, d M Y H:i:s T');
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Load entities.
+   *
+   * @return array|\Drupal\Core\Entity\EntityInterface[]
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   public function getItems() {
-    $build = [];
     $storage = $this->entityTypeManager()->getStorage('aop_feed_item');
 
-    // Query the entities.
-    $query = $storage->getQuery()
+    $ids = $storage->getQuery()
       ->condition('status', 1)
-      ->sort('created', 'DESC');
-    $result = $query->execute();
-    $items = $storage->loadMultiple(array_keys($result));
+      ->sort('created', 'DESC')
+      ->execute();
+
+    if ($ids) {
+      return $storage->loadMultiple(array_keys($ids));
+    }
+
+    return [];
+  }
+
+  /**
+   * Load entities and build a render array for item part of rss feed.
+   *
+   * @return array
+   *   An array as expected by drupal_render().
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  public function buildItems() {
+    $build = [];
+
+    // Query the entities.
+    $items = $this->getItems();
 
     foreach ($items as $item) {
       $elements = [
@@ -129,7 +165,7 @@ class RssController extends ControllerBase {
         'amzn:heroImageCaption' => $item->field_hero_image_caption->first()->view(),
         'amzn:introText' => $item->field_intro_text->first()->view(),
         'amzn:indexContent' => $item->field_index_content->first()->view(),
-        'amzn:products' => $this->getProductsfromItem($item),
+        'amzn:products' => $this->buildProductsforItem($item),
       ];
 
       $build[] = [
@@ -148,9 +184,9 @@ class RssController extends ControllerBase {
    *   The entity object.
    *
    * @return array
-   *   The render array
+   *   An array as expected by drupal_render().
    */
-  public function getProductsfromItem(AopFeedItemInterface $entity) {
+  public function buildProductsforItem(AopFeedItemInterface $entity) {
     $build = [];
     foreach ($entity->field_products as $product) {
       $build[] = [
