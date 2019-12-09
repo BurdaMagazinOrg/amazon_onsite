@@ -1,0 +1,20 @@
+# Default value.
+field.value.aop_product:
+  type: mapping
+  label: Default value
+  mapping:
+    asin:
+      type: boolean
+      label: ASIN
+    headline:
+      type: string
+      label: Headline
+    summary:
+      type: text
+      label: Summary
+    rank:
+      type: integer
+      label: Rank
+    award:
+      type: text
+      label: Award

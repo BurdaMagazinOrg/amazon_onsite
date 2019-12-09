@@ -1,0 +1,26 @@
+uuid: 9184c1ae-dc0d-43e2-95e0-3dd86da33fea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.aop_feed_item.field_index_content
+  module:
+    - amazon_onsite
+_core:
+  default_config_hash: mnIdDgoFHbe6EdTSZtlRCXwTu2JLG30xSw3MWtxnHdI
+id: aop_feed_item.aop_feed_item.field_index_content
+field_name: field_index_content
+entity_type: aop_feed_item
+bundle: aop_feed_item
+label: 'Index Content'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean

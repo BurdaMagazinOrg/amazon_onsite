@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display an item in a views RSS feed.
+ *
+ * Available variables:
+ * - item_elements: RSS item elements to be rendered as XML (pubDate, creator,
+ *   guid).
+ *
+ * @see template_preprocess_views_view_row_rss()
+ *
+ * @ingroup themeable
+ */
+#}
+<item>
+  {% for tag, value in item_elements -%}
+    {% set cdata=false %}
+    {% if tag in [  "amzn:heroImageCaption", "amzn:introText", "amzn:subtitle", "content:encoded" ] %}
+      {% set cdata=true %}
+    {% endif %}
+
+    {{ '<' }}{{ tag }}
+    {% if value -%}
+      {{ '>' }}{% if cdata %}{{ '<![CDATA[' }}{% endif %}{{ value }}{% if cdata %}{{ ']]>' }}{% endif %}{{ '</' }}{{ tag }}{{ '>' }}
+    {% else -%}
+      {{ ' />' }}
+    {% endif %}
+  {%- endfor %}
+</item>

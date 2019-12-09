@@ -1,0 +1,173 @@
+uuid: 26f4a3b3-fc5e-40aa-a6d6-ee9fdd56ba2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.aop_feed_item.aop_feed_item.field_author
+    - field.field.aop_feed_item.aop_feed_item.field_content
+    - field.field.aop_feed_item.aop_feed_item.field_hero_image
+    - field.field.aop_feed_item.aop_feed_item.field_hero_image_caption
+    - field.field.aop_feed_item.aop_feed_item.field_index_content
+    - field.field.aop_feed_item.aop_feed_item.field_intro_text
+    - field.field.aop_feed_item.aop_feed_item.field_products
+    - field.field.aop_feed_item.aop_feed_item.field_subtitle
+    - field.field.aop_feed_item.aop_feed_item.field_url
+    - image.style.thumbnail
+  module:
+    - amazon_onsite
+    - field_group
+    - image
+    - link
+    - text
+third_party_settings:
+  field_group:
+    group_item_information:
+      children:
+        - title
+        - field_hero_image
+        - field_hero_image_caption
+        - field_intro_text
+        - field_subtitle
+        - field_url
+        - field_author
+        - field_index_content
+        - status
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: content-form__form-section
+      label: 'Item Information'
+    group_product_cards:
+      children:
+        - field_products
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        id: ''
+        classes: content-form__form-section
+        required_fields: false
+      label: Products
+    group_content:
+      children:
+        - field_content
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: content-form__form-section
+      label: Content
+_core:
+  default_config_hash: aUukZj2IDM2sk-nFNyHxSkPwsR6y-lp_HghgXwkVH4Y
+id: aop_feed_item.aop_feed_item.default
+targetEntityType: aop_feed_item
+bundle: aop_feed_item
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 10
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_author:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_content:
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_hero_image:
+    weight: 2
+    settings:
+      preview_image_style: thumbnail
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_hero_image_caption:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_index_content:
+    weight: 8
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_intro_text:
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_products:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: aop_product_widget
+    region: content
+  field_subtitle:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_url:
+    weight: 6
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: false
+    weight: 9
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  changed: true
+  created: true
+  uid: true

@@ -1,0 +1,10 @@
+field.widget.settings.aop_product_widget:
+  type: mapping
+  label: 'Product widget settings'
+  mapping:
+    size:
+      type: integer
+      label: 'Size'
+    placeholder:
+      type: textfield
+      label: 'Placeholder'

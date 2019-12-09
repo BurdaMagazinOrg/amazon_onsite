@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Provides an aop feed item entity type.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\text\Plugin\Field\FieldWidget\TextareaWidget;
+
+/**
+ * Implements hook_theme().
+ */
+function amazon_onsite_theme() {
+  return [
+    'rss_product_item' => [
+      'template' => 'rss-product-item',
+      'variables' => ['item_elements' => []]
+    ],
+    'rss_feed_item' => [
+      'template' => 'rss-feed-item',
+      'variables' => ['item_elements' => []]
+    ],
+    'rss_feed' => [
+      'template' => 'rss-feed',
+      'variables' => [
+        'title' => NULL,
+        'link' => NULL,
+        'description' => NULL,
+        'langcode' => NULL,
+        'last_build_date' => NULL,
+        'logo_path' => NULL,
+        'items' => [],
+      ],
+    ],
+  ];
+}

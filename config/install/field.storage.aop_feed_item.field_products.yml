@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - amazon_onsite
+id: aop_feed_item.field_products
+field_name: field_products
+entity_type: aop_feed_item
+type: aop_product
+settings: {  }
+module: amazon_onsite
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
