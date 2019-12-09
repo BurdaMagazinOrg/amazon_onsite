@@ -72,7 +72,6 @@ class AopFeedItemListBuilder extends EntityListBuilder {
 
     $build['summary']['#markup'] = $this->t('Total aop feed items: @total', ['@total' => $total]);
 
-#    \Drupal::service(‘serializer’)->serialize($data, ‘xml’);
     return $build;
   }
 

@@ -1,10 +1,11 @@
-name: 'Amazon Onsite Publishing'
+name: 'Amazon Onsite'
 type: module
 description: 'Amazon Onsite Publishing integration.'
 core: 8.x
 configure: amazon_onsite.settings
 core_version_requirement: ^8 || ^9
 dependencies:
+  - drupal:ckeditor
   - drupal:file
   - drupal:image
   - drupal:link

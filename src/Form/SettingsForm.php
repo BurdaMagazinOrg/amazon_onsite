@@ -3,13 +3,11 @@
 namespace Drupal\amazon_onsite\Form;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 
 /**
  * Class SettingsForm.
@@ -36,10 +34,6 @@ class SettingsForm extends ConfigFormBase {
   public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, FileSystemInterface $file_system) {
     parent::__construct($config_factory);
     $this->moduleHandler = $module_handler;
-    if (!$file_system) {
-      @trigger_error('The file_system service must be passed to ThemeSettingsForm::__construct(), it is required before Drupal 9.0.0. See https://www.drupal.org/node/3006851.', E_USER_DEPRECATED);
-      $file_system = \Drupal::service('file_system');
-    }
     $this->fileSystem = $file_system;
   }
 
@@ -109,7 +103,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'file',
       '#title' => $this->t('Upload image'),
       '#maxlength' => 40,
-      '#description' => t("If you don't have direct file access to the server, use this field to upload your logo."),
+      '#description' => $this->t("If you don't have direct file access to the server, use this field to upload your logo."),
       '#upload_validators' => [
         'file_validate_is_image' => [],
       ],
@@ -124,8 +118,9 @@ class SettingsForm extends ConfigFormBase {
     ];
     $form['channel_url'] = [
       '#title' => $this->t('Channel URL'),
-      '#markup' => 'some url'
+      '#markup' => 'some url',
     ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -149,8 +144,8 @@ class SettingsForm extends ConfigFormBase {
           $form_state->setValue('logo_upload', $file);
         }
       }
-      // If the user provided a path for a logo or favicon file, make sure a file
-      // exists at that path.
+      // If the user provided a path for a logo or favicon file, make sure a
+      // file exists at that path.
       if ($form_state->getValue('logo_path')) {
         $path = $this->validatePath($form_state->getValue('logo_path'));
         if (!$path) {
