@@ -5,6 +5,8 @@
  * Provides an aop feed item entity type.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -31,4 +33,19 @@ function amazon_onsite_theme() {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function amazon_onsite_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  /** @var \Drupal\field\Entity\FieldConfig $def */
+  $def = $context['items']->getFieldDefinition();
+
+  // Set full_html filter format per default.
+  if ($def->getName() === 'field_content'
+      && $def->getTargetBundle() === 'aop_feed_item'
+      && \Drupal::service('entity_type.manager')->getStorage('filter_format')->load('full_html')) {
+    $element['#format'] = 'full_html';
+  }
 }

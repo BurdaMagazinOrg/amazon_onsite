@@ -21,11 +21,6 @@
     // We want to have plugin enabled for all text editors.
     editorSettings.extraPlugins += ",insertAsin";
 
-    // Allow div tag with data-itemtype attribute in CKEditor filter.
-    jQuery.extend(editorSettings.allowedContent, {
-      div: { attributes: "data-itemtype", styles: false, classes: false }
-    });
-
     // Add insertAsin plugin as last one in toolbar and preserved
     // there after ajax requests are executed.
     const toolbar = editorSettings.toolbar;

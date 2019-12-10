@@ -120,6 +120,8 @@ class RssController extends ControllerBase {
    * Load entities.
    *
    * @return array|\Drupal\Core\Entity\EntityInterface[]
+   *   An array of entity objects.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -152,7 +154,6 @@ class RssController extends ControllerBase {
 
     // Query the entities.
     $items = $this->getItems();
-
     foreach ($items as $item) {
       $elements = [
         'title' => $item->getTitle(),

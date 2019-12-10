@@ -4,7 +4,6 @@ namespace Drupal\amazon_onsite\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\amazon_onsite\Plugin\Field\FieldType\AopProductItem;
 
 /**
  * Plugin implementation of the 'aop_product_default' formatter.
@@ -28,7 +27,7 @@ class AopProductDefaultFormatter extends FormatterBase {
       $element[$delta]['asin'] = [
         '#type' => 'item',
         '#title' => $this->t('ASIN'),
-        '#markup' => $item->asin ? $this->t('Yes') : $this->t('No'),
+        '#markup' => $item->asin,
       ];
 
       if ($item->headline) {
@@ -48,11 +47,10 @@ class AopProductDefaultFormatter extends FormatterBase {
       }
 
       if ($item->rank) {
-        $allowed_values = AopProductItem::allowedRankValues();
         $element[$delta]['rank'] = [
           '#type' => 'item',
           '#title' => $this->t('Rank'),
-          '#markup' => $allowed_values[$item->rank],
+          '#markup' => $item->rank,
         ];
       }
 

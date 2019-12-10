@@ -5,7 +5,6 @@ namespace Drupal\amazon_onsite\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\amazon_onsite\Plugin\Field\FieldType\AopProductItem;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 
 /**
@@ -43,9 +42,8 @@ class AopProductWidget extends WidgetBase {
     ];
 
     $element['rank'] = [
-      '#type' => 'select',
+      '#type' => 'textfield',
       '#title' => $this->t('Rank'),
-      '#options' => ['' => $this->t('- Select a value -')] + AopProductItem::allowedRankValues(),
       '#default_value' => isset($items[$delta]->rank) ? $items[$delta]->rank : NULL,
     ];
 

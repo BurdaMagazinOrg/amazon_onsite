@@ -69,14 +69,13 @@ class AopProductItem extends FieldItemBase {
     $constraints = parent::getConstraints();
 
     $options['asin']['NotBlank'] = [];
+    $options['asin']['Length'] = ['min' => 10, 'max' => 10];
 
     $options['headline']['NotBlank'] = [];
 
     $options['summary']['NotBlank'] = [];
 
-    $options['rank']['AllowedValues'] = array_keys(AopProductItem::allowedRankValues());
-
-    $options['rank']['NotBlank'] = [];
+    $options['rank']['Regex'] = ['pattern' => '/^([0-9]+)$/', 'message' => 'Enter a whole number.'];
 
     $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
     $constraints[] = $constraint_manager->create('ComplexData', $options);
@@ -129,37 +128,17 @@ class AopProductItem extends FieldItemBase {
 
     $random = new Random();
 
-    $values['asin'] = $random->string(mt_rand(10));
+    $values['asin'] = $random->string(random_int(10));
 
-    $values['headline'] = $random->word(mt_rand(1, 255));
+    $values['headline'] = $random->word(random_int(1, 255));
 
     $values['summary'] = $random->paragraphs(5);
 
-    $values['rank'] = array_rand(self::allowedRankValues());
+    $values['rank'] = random_int(0, 10);
 
     $values['award'] = $random->paragraphs(5);
 
     return $values;
-  }
-
-  /**
-   * Returns allowed values for 'rank' sub-field.
-   *
-   * @return array
-   *   The list of allowed values.
-   */
-  public static function allowedRankValues() {
-    return [
-      1 => 1,
-      2 => 2,
-      3 => 3,
-      4 => 4,
-      5 => 5,
-      6 => 6,
-      7 => 7,
-      8 => 8,
-      9 => 9,
-    ];
   }
 
 }
