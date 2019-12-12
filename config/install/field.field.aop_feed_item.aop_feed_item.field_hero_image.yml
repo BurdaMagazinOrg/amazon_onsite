@@ -1,4 +1,3 @@
-uuid: 79f30f62-27c2-4763-a842-62e1c2b73aea
 langcode: en
 status: true
 dependencies:
@@ -7,8 +6,6 @@ dependencies:
   module:
     - amazon_onsite
     - image
-_core:
-  default_config_hash: WGRyXp6bP8vR_I8YlK8z_Z28U6EsHs30XvkP-QWo5N8
 id: aop_feed_item.aop_feed_item.field_hero_image
 field_name: field_hero_image
 entity_type: aop_feed_item
