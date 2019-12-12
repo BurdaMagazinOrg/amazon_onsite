@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Provides an aop feed item entity type.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function amazon_onsite_theme() {
+  return [
+    'rss_product_item' => [
+      'template' => 'rss-product-item',
+      'variables' => ['item_elements' => []],
+    ],
+    'rss_feed_item' => [
+      'template' => 'rss-feed-item',
+      'variables' => ['item_elements' => []],
+    ],
+    'rss_feed' => [
+      'template' => 'rss-feed',
+      'variables' => [
+        'title' => NULL,
+        'link' => NULL,
+        'description' => NULL,
+        'langcode' => NULL,
+        'last_build_date' => NULL,
+        'logo_path' => NULL,
+        'items' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function amazon_onsite_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  /** @var \Drupal\field\Entity\FieldConfig $def */
+  $def = $context['items']->getFieldDefinition();
+
+  // Set full_html filter format per default.
+  if ($def->getName() === 'field_content'
+      && $def->getTargetBundle() === 'aop_feed_item'
+      && \Drupal::service('entity_type.manager')->getStorage('filter_format')->load('full_html')) {
+    $element['#format'] = 'full_html';
+  }
+}

@@ -1,0 +1,22 @@
+entity.aop_feed_item.settings:
+  title: Settings
+  route_name: entity.aop_feed_item.settings
+  base_route: entity.aop_feed_item.settings
+entity.aop_feed_item.view:
+  title: View
+  route_name: entity.aop_feed_item.canonical
+  base_route: entity.aop_feed_item.canonical
+entity.aop_feed_item.edit_form:
+  title: Edit
+  route_name: entity.aop_feed_item.edit_form
+  base_route: entity.aop_feed_item.canonical
+entity.aop_feed_item.delete_form:
+  title: Delete
+  route_name: entity.aop_feed_item.delete_form
+  base_route: entity.aop_feed_item.canonical
+  weight: 10
+entity.aop_feed_item.collection:
+  title: AOP feed item
+  route_name: entity.aop_feed_item.collection
+  base_route: system.admin_content
+  weight: 10

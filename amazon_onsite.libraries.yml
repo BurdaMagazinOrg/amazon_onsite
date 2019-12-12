@@ -1,0 +1,5 @@
+drupal.amazon_onsite.insert_asin:
+  js:
+    js/plugins/insertasin/plugin.js: {}
+  dependencies:
+    - core/ckeditor

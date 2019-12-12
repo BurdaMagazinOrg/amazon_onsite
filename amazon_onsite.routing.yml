@@ -1,0 +1,24 @@
+amazon_onsite.settings:
+  path: '/admin/config/amazon_onsite/settings'
+  defaults:
+    _form: '\Drupal\amazon_onsite\Form\SettingsForm'
+    _title: 'Amazon Onsite Publishing'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+
+entity.aop_feed_item.settings:
+  path: 'admin/structure/aop-feed-item'
+  defaults:
+    _form: '\Drupal\amazon_onsite\Form\AopItemSettingsForm'
+    _title: 'Amazon Onsite Publishing items'
+  requirements:
+    _permission: 'administer aop feed item'
+
+amazon_onsite.rss:
+  path: '/aop/rss'
+  defaults:
+    _controller: '\Drupal\amazon_onsite\Controller\RssController::buildResponse'
+  requirements:
+    _permission: 'access content'

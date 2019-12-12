@@ -1,0 +1,5 @@
+aop_feed_item.add_form:
+  route_name: entity.aop_feed_item.add_form
+  title: 'Add AOP feed item'
+  appears_on:
+    - entity.aop_feed_item.collection

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.aop_feed_item.field_content
+  module:
+    - amazon_onsite
+    - text
+id: aop_feed_item.aop_feed_item.field_content
+field_name: field_content
+entity_type: aop_feed_item
+bundle: aop_feed_item
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

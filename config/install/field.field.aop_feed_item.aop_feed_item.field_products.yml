@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.aop_feed_item.field_products
+  module:
+    - amazon_onsite
+id: aop_feed_item.aop_feed_item.field_products
+field_name: field_products
+entity_type: aop_feed_item
+bundle: aop_feed_item
+label: Products
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: aop_product

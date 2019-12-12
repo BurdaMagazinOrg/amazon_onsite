@@ -1,0 +1,26 @@
+administer aop feed item:
+  title: 'Administer AOP feed item settings'
+  restrict access: true
+access aop feed item overview:
+  title: 'Access AOP feed item overview page'
+delete aop feed item:
+  title: 'Delete AOP feed item entities'
+create aop feed item:
+  title: 'Create AOP feed item entities'
+view aop feed item:
+  title: 'View AOP feed item entities'
+edit aop feed item:
+  title: 'Edit AOP feed item entities'
+view published aop feed item entities:
+  title: 'View published AOP feed item entities'
+view unpublished aop feed item entities:
+  title: 'View unpublished AOP feed item entities'
+view all aop feed item revisions:
+  title: 'View all AOP feed item revisions'
+revert all aop feed item revisions:
+  title: 'Revert all AOP feed item revisions'
+  description: 'Role requires permission <em>view AOP feed item revisions</em> and <em>edit rights</em> for AOP feed item entities in question or <em>administer AOP feed item entities</em>.'
+delete all aop feed item revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view AOP feed item revisions</em> and <em>delete rights</em> for AOP feed item entities in question or <em>administer AOP feed item entities</em>.'
+
