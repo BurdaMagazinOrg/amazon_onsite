@@ -130,7 +130,7 @@ class RssController extends ControllerBase {
 
     $ids = $storage->getQuery()
       ->condition('status', 1)
-      ->sort('created', 'DESC')
+      ->sort('changed', 'DESC')
       ->execute();
 
     if ($ids) {
@@ -157,22 +157,25 @@ class RssController extends ControllerBase {
     foreach ($items as $item) {
       $elements = [
         'title' => $item->getTitle(),
-        'amzn:subtitle' => $item->field_subtitle->first()->view(),
+        'amzn:subtitle' => ($subtitle = $item->field_subtitle->first()) ? $subtitle->view() : NULL,
         'link' => $item->field_url->first()->getUrl()->toString(),
         'pubDate' => $this->dateFormatter->format($item->getChangedTime(), 'custom', 'D, d M Y H:i:s T'),
         'author' => $item->field_author->first()->view(),
         'content:encoded' => $item->field_content->first()->view(),
         'amzn:heroImage' => ($hero_image = $item->field_hero_image->entity) ? $hero_image->url() : NULL,
-        'amzn:heroImageCaption' => $item->field_hero_image_caption->first()->view(),
+        'amzn:heroImageCaption' => ($hero_image_caption = $item->field_hero_image_caption->first()) ? $hero_image_caption->view() : NULL,
         'amzn:introText' => $item->field_intro_text->first()->view(),
         'amzn:indexContent' => $item->field_index_content->first()->view(),
         'amzn:products' => $this->buildProductsforItem($item),
       ];
 
-      $build[] = [
+      $render_item = [
         '#theme' => 'rss_feed_item',
         '#item_elements' => $elements,
       ];
+      CacheableMetadata::createFromObject($item)->applyTo($render_item);
+
+      $build[] = $render_item;
     }
 
     return $build;
