@@ -90,7 +90,7 @@ class RssController extends ControllerBase {
       '#description' => $config->get('feed_description'),
       '#langcode' => $config->get('language'),
       '#last_build_date' => $this->getLastBuildDate(),
-      '#logo_path' => $config->get('logo_path'),
+      '#logo_path' => file_create_url($config->get('logo_path')),
       '#items' => $this->buildItems(),
     ];
 
@@ -158,7 +158,7 @@ class RssController extends ControllerBase {
       $elements = [
         'title' => $item->getTitle(),
         'amzn:subtitle' => ($subtitle = $item->field_subtitle->first()) ? $subtitle->view() : NULL,
-        'link' => $item->field_url->first()->getUrl()->toString(),
+        'link' => $item->field_url->first()->getUrl()->setAbsolute(TRUE),
         'pubDate' => $this->dateFormatter->format($item->getChangedTime(), 'custom', 'D, d M Y H:i:s T'),
         'author' => $item->field_author->first()->view(),
         'content:encoded' => $item->field_content->first()->view(),
