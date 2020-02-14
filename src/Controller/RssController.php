@@ -110,7 +110,7 @@ class RssController extends ControllerBase {
     if ($items = $this->getItems()) {
       $latest_item = reset($items);
 
-      return $this->dateFormatter->format($latest_item->getChangedTime(), 'custom', 'D, d M Y H:i:s T');
+      return $this->dateFormatter->format($latest_item->getChangedTime(), 'custom', 'r');
     }
 
     return NULL;
@@ -159,7 +159,7 @@ class RssController extends ControllerBase {
         'title' => $item->getTitle(),
         'amzn:subtitle' => ($subtitle = $item->field_subtitle->first()) ? $subtitle->view() : NULL,
         'link' => $item->field_url->first()->getUrl()->setAbsolute(TRUE),
-        'pubDate' => $this->dateFormatter->format($item->getChangedTime(), 'custom', 'D, d M Y H:i:s T'),
+        'pubDate' => $this->dateFormatter->format($item->getChangedTime(), 'custom', 'r'),
         'author' => $item->field_author->first()->view(),
         'content:encoded' => $item->field_content->first()->view(),
         'amzn:heroImage' => ($hero_image = $item->field_hero_image->entity) ? $hero_image->url() : NULL,
