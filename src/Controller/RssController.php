@@ -66,6 +66,7 @@ class RssController extends ControllerBase {
 
     $response->setContent($output);
     $cache_metadata = CacheableMetadata::createFromRenderArray($build);
+    $cache_metadata->addCacheTags(['config:amazon_onsite.settings', 'aop_feed_item_list']);
     $response->addCacheableDependency($cache_metadata);
 
     return $response;
