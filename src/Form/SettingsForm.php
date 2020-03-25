@@ -7,6 +7,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -156,6 +157,39 @@ class SettingsForm extends ConfigFormBase {
         }
       }
     }
+  }
+
+  /**
+   * Helper function for the system_theme_settings form.
+   *
+   * Attempts to validate normal system paths, paths relative to the public files
+   * directory, or stream wrapper URIs. If the given path is any of the above,
+   * returns a valid path or URI that the theme system can display.
+   *
+   * @param string $path
+   *   A path relative to the Drupal root or to the public files directory, or
+   *   a stream wrapper URI.
+   * @return mixed
+   *   A valid path that can be displayed through the theme system, or FALSE if
+   *   the path could not be validated.
+   */
+  protected function validatePath($path) {
+    // Absolute local file paths are invalid.
+    if ($this->fileSystem->realpath($path) == $path) {
+      return FALSE;
+    }
+    // A path relative to the Drupal root or a fully qualified URI is valid.
+    if (is_file($path)) {
+      return $path;
+    }
+    // Prepend 'public://' for relative file paths within public filesystem.
+    if (StreamWrapperManager::getScheme($path) === FALSE) {
+      $path = 'public://' . $path;
+    }
+    if (is_file($path)) {
+      return $path;
+    }
+    return FALSE;
   }
 
   /**
