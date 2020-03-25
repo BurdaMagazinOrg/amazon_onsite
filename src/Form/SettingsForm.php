@@ -211,7 +211,7 @@ class SettingsForm extends ConfigFormBase {
     $this->config('amazon_onsite.settings')
       ->set('channel_title', $form_state->getValue('channel_title'))
       ->set('website_url', $form_state->getValue('website_url'))
-      ->set('feed_description', $form_state->getValue('channel_title'))
+      ->set('feed_description', $form_state->getValue('feed_description'))
       ->set('language', $form_state->getValue('language'))
       ->set('logo_path', !empty($logo_path) ? $logo_path : $form_state->getValue('logo_path'))
       ->save();
