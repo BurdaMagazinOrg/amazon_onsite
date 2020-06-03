@@ -100,7 +100,7 @@
         onOk() {
           const asin = CKEDITOR.tools.trim(this.getValueOf("general", "asin"));
           const div = CKEDITOR.dom.element.createFromHtml(
-            `<div data-itemtype="product"><a href="https://www.amazon.de/dp/${asin}">ASIN:${asin}</a></div>`
+            `<a href="https://www.amazon.de/dp/${asin}" data-amazon-onsite-product>ASIN:${asin}</a>`
           );
           editor.insertElement(div);
         },
