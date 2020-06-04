@@ -11,7 +11,7 @@ use Drupal\filter\Plugin\FilterBase;
  *
  * @Filter(
  *   id = "filter_amazon_product",
- *   title = @Translation("Fix amazon product cards"),
+ *   title = @Translation("Render amazon product cards"),
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_IRREVERSIBLE,
  * )
  */

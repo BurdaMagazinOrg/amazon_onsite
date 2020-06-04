@@ -4,91 +4,34 @@
  * @file plugin.js
  */
 
-(function ($, Drupal, drupalSettings, CKEDITOR) {
+(function ($, Drupal, CKEDITOR) {
 
-  /**
-   *  CKEditor.
-   *
-   * @param {object} editorSettings
-   *   CKEditor settings object.
-   */
-  const registerPlugin = function (editorSettings) {
-    // The insertAsin toolbar and plugin should be registered only once.
-    if (editorSettings.extraPlugins.indexOf("insertAsin") !== -1) {
-      return;
-    }
-
-    // We want to have plugin enabled for all text editors.
-    editorSettings.extraPlugins += ",insertAsin";
-
-    // Add insertAsin plugin as last one in toolbar and preserved
-    // there after ajax requests are executed.
-    const toolbar = editorSettings.toolbar;
-    if (typeof editorSettings._insertasinIndex === "undefined") {
-      editorSettings.insertasinIndex = toolbar.length - 1;
-      toolbar.push("/");
-    }
-
-    toolbar[editorSettings.insertasinIndex] = {
-      name: Drupal.t("Insert amazon product"),
-      items: ["insertAsin"]
-    };
-  };
-
-  /**
-   * Register insertAsin plugin for all CKEditors.
-   *
-   * @type {{attach: attach}}
-   */
-  Drupal.behaviors.setinsertAsin = {
-    attach() {
-      if (
-        !drupalSettings ||
-        !drupalSettings.editor ||
-        !drupalSettings.editor.formats
-      ) {
-        return;
-      }
-
-      $.each(drupalSettings.editor.formats, (editorId, editorInfo) => {
-        if (editorInfo.editor === "ckeditor") {
-          registerPlugin(editorInfo.editorSettings);
-        }
-      });
-    }
-  };
-
-  /**
-   * Register define new plugin.
-   */
-  CKEDITOR.plugins.addExternal(
-    "insertAsin",
-    `/${drupalSettings.amazon_onsite._path}/js/plugins/insertasin/`,
-    "plugin.js"
-  );
-
-  CKEDITOR.plugins.add("insertAsin", {
+  CKEDITOR.plugins.add("insertasin", {
     hidpi: true,
     icons: "insertasin",
     requires: "dialog",
 
-    init(editor) {
-      // Only add to field_content.
-      if (
-        !(
-          editor.element
-            .getAttribute("data-drupal-selector")
-            .replace(/-[0-9]+-value$/, "") === "edit-field-content"
-        )
-      ) {
-        return;
-      }
+    init: function init(editor) {
 
       editor.addCommand(
         "insertAsinDialog",
         new CKEDITOR.dialogCommand("insertAsinDialog", {
-          allowedContent: "div[data-itemtype]",
-          requiredContent: "div"
+          allowedContent: "a[data-amazon-onsite-product]",
+          allowedContent: {
+            a: {
+              attributes: {
+                '!data-amazon-onsite-product': true
+              },
+              classes: {}
+            }
+          },
+          requiredContent: new CKEDITOR.style({
+            element: 'a',
+            attributes: {
+              'data-amazon-onsite-product': '',
+            },
+          }),
+          modes: { wysiwyg: 1 }
         })
       );
 
@@ -122,11 +65,12 @@
           }
         ]
       }));
-
-      editor.ui.addButton("insertAsin", {
-        label: Drupal.t("Insert amazon product"),
-        command: "insertAsinDialog"
-      });
+      if (editor.ui.addButton) {
+        editor.ui.addButton("InsertAsin", {
+          label: Drupal.t("Insert amazon product"),
+          command: "insertAsinDialog"
+        });
+      }
 
       if (editor.addMenuItems) {
         editor.addMenuGroup("insertAsin");
@@ -147,4 +91,4 @@
       }
     }
   });
-})(jQuery, Drupal, drupalSettings, CKEDITOR);
+})(jQuery, Drupal, CKEDITOR);

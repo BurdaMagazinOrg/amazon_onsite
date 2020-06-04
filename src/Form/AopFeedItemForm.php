@@ -13,19 +13,6 @@ class AopFeedItemForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, FormStateInterface $form_state) {
-
-    $form = parent::form($form, $form_state);
-
-    $form['#attached']['library'][] = 'amazon_onsite/drupal.amazon_onsite.insert_asin';
-    $form['#attached']['drupalSettings']['amazon_onsite']['_path'] = drupal_get_path('module', 'amazon_onsite');
-
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function save(array $form, FormStateInterface $form_state) {
 
     $entity = $this->getEntity();
