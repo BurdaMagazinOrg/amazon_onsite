@@ -45,7 +45,7 @@ function amazon_onsite_field_widget_form_alter(&$element, FormStateInterface $fo
   // Set full_html filter format per default.
   if ($def->getName() === 'field_content'
       && $def->getTargetBundle() === 'aop_feed_item'
-      && \Drupal::service('entity_type.manager')->getStorage('filter_format')->load('full_html')) {
-    $element['#format'] = 'full_html';
+      && \Drupal::service('entity_type.manager')->getStorage('filter_format')->load('amazon_onsite')) {
+    $element['#format'] = 'amazon_onsite';
   }
 }
