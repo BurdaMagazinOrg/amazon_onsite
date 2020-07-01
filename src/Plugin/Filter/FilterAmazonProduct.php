@@ -28,6 +28,10 @@ class FilterAmazonProduct extends FilterBase {
       $xpath = new \DOMXPath($dom);
 
       foreach ($xpath->query('//a[@data-amazon-onsite-product]') as $node) {
+        // Groom link: remove data attribute and inner HTML.
+        $node->removeAttribute('data-amazon-onsite-product');
+        $node->firstChild->nodeValue = '';
+        // Add wrapper div.
         $wrapper = $dom->createElement('div');
         $wrapper->setAttribute('data-itemtype', 'product');
         $wrapper->appendChild($node->cloneNode(TRUE));
