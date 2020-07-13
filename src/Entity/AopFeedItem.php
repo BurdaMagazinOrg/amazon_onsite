@@ -34,7 +34,7 @@ use Drupal\user\UserInterface;
  *   base_table = "aop_feed_item",
  *   revision_table = "aop_feed_item_revision",
  *   show_revision_ui = TRUE,
- *   admin_permission = "administer aop feed item",
+ *   admin_permission = "access aop feed item overview",
  *   entity_keys = {
  *     "id" = "id",
  *     "revision" = "revision_id",
