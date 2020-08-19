@@ -104,7 +104,7 @@ class RssController extends ControllerBase {
       '#description' => $config->get('feed_description'),
       '#langcode' => $config->get('language'),
       '#last_build_date' => $this->getLastBuildDate(),
-      '#logo_path' => file_create_url($config->get('logo_path')),
+      '#logo_path' => $config->get('logo_path') ? file_create_url($config->get('logo_path')) : '',
       '#items' => $this->buildItems(),
     ];
   }

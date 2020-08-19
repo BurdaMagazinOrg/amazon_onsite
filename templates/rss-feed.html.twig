@@ -27,7 +27,7 @@
     <language>{{ langcode }}</language>
     <lastBuildDate>{{ last_build_date }}</lastBuildDate>
     <amzn:rssVersion>1.0</amzn:rssVersion>
-    <image>{{ logo_path }}</image>
+    {%- if logo_path ~%}<image>{{ logo_path }}</image>{% endif ~%}
     {{ items }}
   </channel>
 </rss>
