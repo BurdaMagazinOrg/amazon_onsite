@@ -35,36 +35,38 @@
         })
       );
 
-      CKEDITOR.dialog.add('insertAsinDialog', api => ({
-        title: Drupal.t('Insert amazon product card'),
-        resizable: CKEDITOR.DIALOG_RESIZE_BOTH,
-        minWidth: 400,
-        minHeight: 200,
-        onOk() {
-          const asin = CKEDITOR.tools.trim(this.getValueOf('general', 'asin'));
-          const div = CKEDITOR.dom.element.createFromHtml(
-            `<a href='https://www.amazon.de/dp/${asin}' data-amazon-onsite-product>ASIN:${asin}</a>`
-          );
-          editor.insertElement(div);
-        },
-        contents: [
-          {
-            id: 'general',
-            label: 'ASIN',
-            elements: [
-              {
-                type: 'text',
-                id: 'asin',
-                label: 'ASIN',
-                validate: CKEDITOR.dialog.validate.functions(
-                  val => !(val.length < 10),
-                  Drupal.t('ASIN must be 10 characters long.')
-                )
-              }
-            ]
-          }
-        ]
-      }));
+      CKEDITOR.dialog.add('insertAsinDialog', function (api) {
+        return {
+          title: Drupal.t('Insert amazon product card'),
+          resizable: CKEDITOR.DIALOG_RESIZE_BOTH,
+          minWidth: 400,
+          minHeight: 200,
+          onOk: function () {
+            var asin = CKEDITOR.tools.trim(this.getValueOf('general', 'asin'));
+            var div = CKEDITOR.dom.element.createFromHtml(
+              '<a href="https://www.amazon.de/dp/' + asin + '" data-amazon-onsite-product>ASIN:' + asin + '</a>'
+            );
+            editor.insertElement(div);
+          },
+          contents: [
+            {
+              id: 'general',
+              label: 'ASIN',
+              elements: [
+                {
+                  type: 'text',
+                  id: 'asin',
+                  label: 'ASIN',
+                  validate: CKEDITOR.dialog.validate.functions(
+                    function (val) { return !(val.length < 10); },
+                    Drupal.t('ASIN must be 10 characters long.')
+                  )
+                }
+              ]
+            }
+          ]
+        };
+      });
       if (editor.ui.addButton) {
         editor.ui.addButton('InsertAsin', {
           label: Drupal.t('Insert amazon product'),
@@ -85,9 +87,11 @@
       }
 
       if (editor.contextMenu) {
-        editor.contextMenu.addListener(() => ({
-          insertasin: CKEDITOR.TRISTATE_OFF
-        }));
+        editor.contextMenu.addListener(function () {
+          return {
+            insertasin: CKEDITOR.TRISTATE_OFF
+          };
+        });
       }
     }
   });
