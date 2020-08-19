@@ -5,6 +5,7 @@
  */
 
 (function ($, Drupal, CKEDITOR) {
+  'use strict';
 
   CKEDITOR.plugins.add('insertasin', {
     hidpi: true,
@@ -30,7 +31,7 @@
               'data-amazon-onsite-product': ''
             }
           }),
-          modes: { wysiwyg: 1 }
+          modes: {wysiwyg: 1}
         })
       );
 
@@ -40,24 +41,24 @@
         minWidth: 400,
         minHeight: 200,
         onOk() {
-          const asin = CKEDITOR.tools.trim(this.getValueOf("general", "asin"));
+          const asin = CKEDITOR.tools.trim(this.getValueOf('general', 'asin'));
           const div = CKEDITOR.dom.element.createFromHtml(
-            `<a href="https://www.amazon.de/dp/${asin}" data-amazon-onsite-product>ASIN:${asin}</a>`
+            `<a href='https://www.amazon.de/dp/${asin}' data-amazon-onsite-product>ASIN:${asin}</a>`
           );
           editor.insertElement(div);
         },
         contents: [
           {
-            id: "general",
-            label: "ASIN",
+            id: 'general',
+            label: 'ASIN',
             elements: [
               {
-                type: "text",
-                id: "asin",
-                label: "ASIN",
+                type: 'text',
+                id: 'asin',
+                label: 'ASIN',
                 validate: CKEDITOR.dialog.validate.functions(
                   val => !(val.length < 10),
-                 Drupal.t( "ASIN must be 10 characters long.")
+                  Drupal.t('ASIN must be 10 characters long.')
                 )
               }
             ]
@@ -65,19 +66,19 @@
         ]
       }));
       if (editor.ui.addButton) {
-        editor.ui.addButton("InsertAsin", {
-          label: Drupal.t("Insert amazon product"),
-          command: "insertAsinDialog"
+        editor.ui.addButton('InsertAsin', {
+          label: Drupal.t('Insert amazon product'),
+          command: 'insertAsinDialog'
         });
       }
 
       if (editor.addMenuItems) {
-        editor.addMenuGroup("insertAsin");
+        editor.addMenuGroup('insertAsin');
         editor.addMenuItems({
           insertasin: {
-            label: Drupal.t("Insert amazon product"),
-            command: "insertasin",
-            group: "insertasin",
+            label: Drupal.t('Insert amazon product'),
+            command: 'insertasin',
+            group: 'insertasin',
             order: 1
           }
         });
