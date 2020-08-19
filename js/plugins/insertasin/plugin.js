@@ -6,17 +6,16 @@
 
 (function ($, Drupal, CKEDITOR) {
 
-  CKEDITOR.plugins.add("insertasin", {
+  CKEDITOR.plugins.add('insertasin', {
     hidpi: true,
-    icons: "insertasin",
-    requires: "dialog",
+    icons: 'insertasin',
+    requires: 'dialog',
 
     init: function init(editor) {
 
       editor.addCommand(
-        "insertAsinDialog",
-        new CKEDITOR.dialogCommand("insertAsinDialog", {
-          allowedContent: "a[data-amazon-onsite-product]",
+        'insertAsinDialog',
+        new CKEDITOR.dialogCommand('insertAsinDialog', {
           allowedContent: {
             a: {
               attributes: {
@@ -28,15 +27,15 @@
           requiredContent: new CKEDITOR.style({
             element: 'a',
             attributes: {
-              'data-amazon-onsite-product': '',
-            },
+              'data-amazon-onsite-product': ''
+            }
           }),
           modes: { wysiwyg: 1 }
         })
       );
 
-      CKEDITOR.dialog.add("insertAsinDialog", api => ({
-        title: Drupal.t("Insert amazon product card"),
+      CKEDITOR.dialog.add('insertAsinDialog', api => ({
+        title: Drupal.t('Insert amazon product card'),
         resizable: CKEDITOR.DIALOG_RESIZE_BOTH,
         minWidth: 400,
         minHeight: 200,

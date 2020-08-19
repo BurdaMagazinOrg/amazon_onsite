@@ -13,17 +13,18 @@
  */
 #}
 <item>
-  {% for tag, value in item_elements -%}
+  {%- for tag, value in item_elements -%}
     {% set cdata=false %}
-    {% if tag in [  "amzn:heroImageCaption", "amzn:introText", "amzn:subtitle", "content:encoded" ] %}
+    {%- if tag in [  "amzn:heroImageCaption", "amzn:introText", "amzn:subtitle", "content:encoded" ] -%}
       {% set cdata=true %}
-    {% endif %}
-
-    {{ '<' }}{{ tag }}
-    {% if value -%}
-      {{ '>' }}{% if cdata %}{{ '<![CDATA[' }}{% endif %}{{ value }}{% if cdata %}{{ ']]>' }}{% endif %}{{ '</' }}{{ tag }}{{ '>' }}
-    {% else -%}
-      {{ ' />' }}
-    {% endif %}
-  {%- endfor %}
+    {%- endif -%}
+    {% apply spaceless %}
+      {{ '<' }}{{ tag -}}
+      {%- if value -%}
+        {{ '>' }}{% if cdata %}{{ '<![CDATA[' }}{% endif %}{{ value }}{% if cdata %}{{ ']]>' }}{% endif %}{{ '</' }}{{ tag }}{{ '>' }}
+      {%- else -%}
+        {{ ' />' }}
+      {%- endif -%}
+    {% endapply %}
+  {%- endfor -%}
 </item>

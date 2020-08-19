@@ -1,3 +1,23 @@
+amazon_onsite.settings:
+  type: config_object
+  label: 'Onsite settings'
+  mapping:
+    channel_title:
+      type: string
+      label: Title
+    website_url:
+      type: string
+      label: Website URL
+    language:
+      type: string
+      label: Language
+    logo_path:
+      type: string
+      label: Channel logo
+    feed_description:
+      type: string
+      label: Feed description
+
 # Default value.
 field.value.aop_product:
   type: mapping

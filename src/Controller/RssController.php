@@ -84,7 +84,20 @@ class RssController extends ControllerBase {
   public function build() {
     $config = $this->config('amazon_onsite.settings');
 
-    $build = [
+    $required_configs = [
+      'channel_title',
+      'website_url',
+      'feed_description',
+      'language',
+    ];
+
+    foreach ($required_configs as $required_config) {
+      if (empty($config->get($required_config))) {
+        throw new \Exception("$required_config needs to be set.");
+      }
+    }
+
+    return [
       '#theme' => 'rss_feed',
       '#title' => $config->get('channel_title'),
       '#link' => $config->get('website_url'),
@@ -94,8 +107,6 @@ class RssController extends ControllerBase {
       '#logo_path' => file_create_url($config->get('logo_path')),
       '#items' => $this->buildItems(),
     ];
-
-    return $build;
   }
 
   /**
