@@ -1,0 +1,15 @@
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:amzn="https://amazon.com/ospublishing/1.0/">
+  <channel>
+    <title>Bacon blog</title>
+    <link>http://example.com</link>
+    <description>Best meat ever.</description>
+    <language>de-DE</language>
+    <lastBuildDate>Wed, 19 Aug 2020 10:00:00 +1000</lastBuildDate>
+    <amzn:rssVersion>1.0</amzn:rssVersion>
+    <item><title>Bacon ipsum</title><amzn:subtitle /><link>http://example.com/bacon</link><pubDate>Wed, 19 Aug 2020 10:00:00 +1000</pubDate><author>Bernd am Grill</author><content:encoded><![CDATA[<p>Bacon ipsum dolor amet chuck tenderloin sirloin, chicken tail kevin doner meatball jerky landjaeger jowl alcatra.</p>
+]]></content:encoded><amzn:heroImage /><amzn:heroImageCaption /><amzn:introText><![CDATA[Capicola biltong leberkas hamburger.]]></amzn:introText><amzn:indexContent>False</amzn:indexContent><amzn:products><amzn:product><amzn:productURL>https://amazon.de/dp/asdfghjklk</amzn:productURL><amzn:productHeadline><![CDATA[Bacon cooking]]></amzn:productHeadline><amzn:productSummary><![CDATA[Best backon cooking book ever]]></amzn:productSummary><amzn:rank>1</amzn:rank><amzn:award>Award</amzn:award></amzn:product></amzn:products></item>
+<item><title>Bavaria ipsum dolor sit amet Prosd dei Marterl.</title><amzn:subtitle /><link>http://example.com/bavaria</link><pubDate>Wed, 19 Aug 2020 10:00:00 +1000</pubDate><author>Fonsi</author><content:encoded><![CDATA[<p>Bavaria ipsum dolor sit amet Prosd dei Marterl. Diandldrahn boarischer wea ko, dea ko Blosmusi Watschnpladdla no gwiss. Wiavui i auszutzeln Zidern, es!</p>
+]]></content:encoded><amzn:heroImage /><amzn:heroImageCaption /><amzn:introText><![CDATA[Schaung kost nix Mamalad gor Mamalad hogg di hera.]]></amzn:introText><amzn:indexContent>False</amzn:indexContent><amzn:products><amzn:product><amzn:productURL>https://amazon.de/dp/asdfghjklk</amzn:productURL><amzn:productHeadline><![CDATA[Bavaria ipsum]]></amzn:productHeadline><amzn:productSummary><![CDATA[Bavaria ipsum dolor sit amet Prosd]]></amzn:productSummary><amzn:rank>1</amzn:rank><amzn:award>Award</amzn:award></amzn:product></amzn:products></item>
+
+  </channel>
+</rss>

@@ -51,7 +51,7 @@ class OnSiteTest extends BrowserTestBase {
   /**
    * Tests if a single item is rendered correctly.
    */
-  public function testSingleItem() {
+  public function testFeed() {
 
     $this->drupalLogin($this->anonymousUser);
 
@@ -62,6 +62,33 @@ class OnSiteTest extends BrowserTestBase {
       'field_content' => 'Bacon ipsum dolor amet chuck tenderloin sirloin, chicken tail kevin doner meatball jerky landjaeger jowl alcatra.',
       'field_intro_text' => 'Capicola biltong leberkas hamburger.',
       'changed' => \DateTime::createFromFormat('Y-m-d H:i:s', '2020-08-19 10:00:00')->getTimestamp(),
+      'field_products' => [
+        [
+          'asin' => 'asdfghjklk',
+          'headline' => 'Bacon cooking',
+          'summary' => 'Best backon cooking book ever',
+          'rank' => 1,
+          'award' => 'Award',
+        ],
+      ],
+    ])->save();
+
+    AopFeedItem::create([
+      'title' => 'Bavaria ipsum dolor sit amet Prosd dei Marterl.',
+      'field_url' => 'http://example.com/bavaria',
+      'field_author' => 'Fonsi',
+      'field_content' => 'Bavaria ipsum dolor sit amet Prosd dei Marterl. Diandldrahn boarischer wea ko, dea ko Blosmusi Watschnpladdla no gwiss. Wiavui i auszutzeln Zidern, es!',
+      'field_intro_text' => 'Schaung kost nix Mamalad gor Mamalad hogg di hera.',
+      'changed' => \DateTime::createFromFormat('Y-m-d H:i:s', '2020-08-19 10:00:00')->getTimestamp(),
+      'field_products' => [
+        [
+          'asin' => 'asdfghjklk',
+          'headline' => 'Bavaria ipsum',
+          'summary' => 'Bavaria ipsum dolor sit amet Prosd',
+          'rank' => 1,
+          'award' => 'Award',
+        ],
+      ],
     ])->save();
 
     $http_client = $this->getHttpClient();
@@ -74,7 +101,7 @@ class OnSiteTest extends BrowserTestBase {
       'http_errors' => FALSE,
     ]);
 
-    $this->assertStringEqualsFile(__DIR__ . '/../../fixtures/single-item.rss', (string) $response->getBody());
+    $this->assertStringEqualsFile(__DIR__ . '/../../fixtures/feed.rss', (string) $response->getBody());
   }
 
 }
