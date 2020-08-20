@@ -11,5 +11,8 @@
     "support": {
         "issues": "https://github.com/BurdaMagazinOrg/amazon_onsite/issues",
         "source": "https://github.com/BurdaMagazinOrg/amazon_onsite"
+    },
+    "require": {
+        "drupal/field_group": "^3.1"
     }
 }
