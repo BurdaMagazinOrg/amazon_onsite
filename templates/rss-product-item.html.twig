@@ -18,12 +18,13 @@
     {% if tag in [  "amzn:productHeadline", "amzn:productSummary" ] %}
       {% set cdata=true %}
     {% endif %}
-
-    {{ '<' }}{{ tag }}
-    {% if value -%}
-      {{ '>' }}{% if cdata %}{{ '<![CDATA[' }}{% endif %}{{ value }}{% if cdata %}{{ ']]>' }}{% endif %}{{ '</' }}{{ tag }}{{ '>' }}
-    {% else -%}
-      {{ ' />' }}
-    {% endif %}
+    {% apply spaceless %}
+      {{ '<' }}{{ tag -}}
+      {%- if value -%}
+        {{ '>' }}{% if cdata %}{{ '<![CDATA[' }}{% endif %}{{ value }}{% if cdata %}{{ ']]>' }}{% endif %}{{ '</' }}{{ tag }}{{ '>' }}
+      {%- else -%}
+        {{ ' />' }}
+      {%- endif -%}
+    {% endapply %}
   {%- endfor %}
 </amzn:product>
