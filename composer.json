@@ -1,13 +1,11 @@
 {
-    "name": "burdamagazinorg/amazon_onsite",
+    "name": "drupal/amazon_onsite",
     "description": "Amazon Onsite Publishing integration.",
     "type": "drupal-module",
     "license": "GPL-2.0-or-later",
     "keywords": [
     ],
     "homepage": "https://www.drupal.org/project/amazon_onsite",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "support": {
         "issues": "https://github.com/BurdaMagazinOrg/amazon_onsite/issues",
         "source": "https://github.com/BurdaMagazinOrg/amazon_onsite"
