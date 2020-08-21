@@ -11,6 +11,6 @@
         "source": "https://github.com/BurdaMagazinOrg/amazon_onsite"
     },
     "require": {
-        "drupal/field_group": "^3.1"
+        "drupal/field_group": "^3.0"
     }
 }
