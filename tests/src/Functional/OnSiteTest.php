@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\paragraphs\Functional;
+namespace Drupal\Tests\amazon_onsite\Functional;
 
 use Drupal\amazon_onsite\Entity\AopFeedItem;
 use Drupal\Core\Url;
