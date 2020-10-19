@@ -23,7 +23,6 @@ jobs:
       - name: phpcs
         uses: chrfritsch/action-drupal-coder@v1
         with:
-          filter_mode: nofilter
           github_token: ${{ secrets.github_token }}
           level: error
 
