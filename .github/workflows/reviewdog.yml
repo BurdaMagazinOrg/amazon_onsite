@@ -21,8 +21,9 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: phpcs
-        uses: chrfritsch/action-drupal-coder@v1
+        uses: chrfritsch/action-drupal-coder@ol0lll:patch-1
         with:
+          filter_mode: nofilter
           github_token: ${{ secrets.github_token }}
           level: error
 
