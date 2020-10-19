@@ -71,7 +71,10 @@ class AopProductItem extends FieldItemBase {
     $options['asin']['NotBlank'] = [];
     $options['asin']['Length'] = ['min' => 10, 'max' => 10];
 
-    $options['rank']['Regex'] = ['pattern' => '/^([0-9]+)$/', 'message' => 'Enter a whole number.'];
+    $options['rank']['Regex'] = [
+      'pattern' => '/^([0-9]+)$/',
+      'message' => 'Enter a whole number.',
+    ];
 
     $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
     $constraints[] = $constraint_manager->create('ComplexData', $options);
