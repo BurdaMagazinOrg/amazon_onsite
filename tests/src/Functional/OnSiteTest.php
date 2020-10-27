@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\paragraphs\Functional;
+namespace Drupal\Tests\amazon_onsite\Functional;
 
 use Drupal\amazon_onsite\Entity\AopFeedItem;
 use Drupal\Core\Url;
@@ -101,7 +101,17 @@ class OnSiteTest extends BrowserTestBase {
       'http_errors' => FALSE,
     ]);
 
-    $this->assertStringEqualsFile(__DIR__ . '/../../fixtures/feed.rss', (string) $response->getBody());
+    $this->assertStringEqualsFile($this->getFeedMock(), (string) $response->getBody());
+  }
+
+  /**
+   * Return location of feed mock.
+   *
+   * @return string
+   *   The mocked feed.
+   */
+  protected function getFeedMock() {
+    return __DIR__ . '/../../fixtures/feed.rss';
   }
 
 }

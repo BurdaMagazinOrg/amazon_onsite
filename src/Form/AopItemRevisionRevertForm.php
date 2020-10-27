@@ -107,8 +107,14 @@ class AopItemRevisionRevertForm extends ConfirmFormBase {
     ]);
     $this->revision->save();
 
-    $this->logger('content')->notice('AOP RSS Item: reverted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
-    $this->messenger()->addMessage($this->t('AOP RSS Item %title has been reverted to the revision from %revision-date.', ['%title' => $this->revision->label(), '%revision-date' => $this->dateFormatter->format($original_revision_timestamp)]));
+    $this->logger('content')->notice('AOP RSS Item: reverted %title revision %revision.', [
+      '%title' => $this->revision->label(),
+      '%revision' => $this->revision->getRevisionId(),
+    ]);
+    $this->messenger()->addMessage($this->t('AOP RSS Item %title has been reverted to the revision from %revision-date.', [
+      '%title' => $this->revision->label(),
+      '%revision-date' => $this->dateFormatter->format($original_revision_timestamp),
+    ]));
     $form_state->setRedirect(
       'entity.aop_item.version_history',
       ['aop_item' => $this->revision->id()]

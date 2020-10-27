@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class RssController.
+ * Controller for the amazon onsite rss feed.
  *
  * @package Drupal\amazon_onsite\Controller
  */
@@ -66,7 +66,10 @@ class RssController extends ControllerBase {
 
     $response->setContent($output);
     $cache_metadata = CacheableMetadata::createFromRenderArray($build);
-    $cache_metadata->addCacheTags(['config:amazon_onsite.settings', 'aop_feed_item_list']);
+    $cache_metadata->addCacheTags([
+      'config:amazon_onsite.settings',
+      'aop_feed_item_list',
+    ]);
     $response->addCacheableDependency($cache_metadata);
 
     return $response;
