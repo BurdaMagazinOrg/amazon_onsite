@@ -22,10 +22,16 @@ class AopFeedItemAccessControlHandler extends EntityAccessControlHandler {
         return AccessResult::allowedIfHasPermission($account, 'view aop feed item');
 
       case 'update':
-        return AccessResult::allowedIfHasPermissions($account, ['edit aop feed item', 'administer aop feed item'], 'OR');
+        return AccessResult::allowedIfHasPermissions($account, [
+          'edit aop feed item',
+          'administer aop feed item',
+        ], 'OR');
 
       case 'delete':
-        return AccessResult::allowedIfHasPermissions($account, ['delete aop feed item', 'administer aop feed item'], 'OR');
+        return AccessResult::allowedIfHasPermissions($account, [
+          'delete aop feed item',
+          'administer aop feed item',
+        ], 'OR');
 
       default:
         // No opinion.
@@ -38,7 +44,10 @@ class AopFeedItemAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIfHasPermissions($account, ['create aop feed item', 'administer aop feed item'], 'OR');
+    return AccessResult::allowedIfHasPermissions($account, [
+      'create aop feed item',
+      'administer aop feed item',
+    ], 'OR');
   }
 
 }

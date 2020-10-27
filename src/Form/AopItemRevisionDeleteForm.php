@@ -91,11 +91,17 @@ class AopItemRevisionDeleteForm extends ConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->AopItemStorage->deleteRevision($this->revision->getRevisionId());
 
-    $this->logger('content')->notice('AOP RSS Item: deleted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
-    $this->messenger()->addMessage($this->t('Revision from %revision-date of AOP RSS Item %title has been deleted.', ['%revision-date' => format_date($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()]));
+    $this->logger('content')->notice('AOP RSS Item: deleted %title revision %revision.', [
+      '%title' => $this->revision->label(),
+      '%revision' => $this->revision->getRevisionId(),
+    ]);
+    $this->messenger()->addMessage($this->t('Revision from %revision-date of AOP RSS Item %title has been deleted.', [
+      '%revision-date' => format_date($this->revision->getRevisionCreationTime()),
+      '%title' => $this->revision->label(),
+    ]));
     $form_state->setRedirect(
       'entity.aop_item.canonical',
-       ['aop_item' => $this->revision->id()]
+       ['aop_item' => $this->revision->id()],
     );
     if ($this->connection->query('SELECT COUNT(DISTINCT vid) FROM {aop_item_field_revision} WHERE id = :id', [':id' => $this->revision->id()])->fetchField() > 1) {
       $form_state->setRedirect(

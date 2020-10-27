@@ -12,7 +12,7 @@ use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class SettingsForm.
+ * The settings form for amazon onsite module.
  */
 class SettingsForm extends ConfigFormBase {
 
