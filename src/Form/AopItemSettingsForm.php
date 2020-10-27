@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 
 /**
- * Class AopItemSettingsForm.
+ * Configure aop item settings.
  *
  * @ingroup amazon_onsite
  */
