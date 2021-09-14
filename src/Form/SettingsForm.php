@@ -201,7 +201,7 @@ class SettingsForm extends ConfigFormBase {
 
     try {
       if (!empty($form_state->getValue('logo_upload'))) {
-        $filename = $this->fileSystem->copy($form_state->getValue('logo_upload')->getFileUri(), file_default_scheme() . '://');
+        $filename = $this->fileSystem->copy($form_state->getValue('logo_upload')->getFileUri(), \Drupal::config('system.file')->get('default_scheme') . '://');
         $logo_path = $filename;
       }
     }

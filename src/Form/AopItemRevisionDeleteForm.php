@@ -57,7 +57,7 @@ class AopItemRevisionDeleteForm extends ConfirmFormBase {
    */
   public function getQuestion() {
     return $this->t('Are you sure you want to delete the revision from %revision-date?', [
-      '%revision-date' => format_date($this->revision->getRevisionCreationTime()),
+      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()),
     ]);
   }
 
@@ -96,7 +96,7 @@ class AopItemRevisionDeleteForm extends ConfirmFormBase {
       '%revision' => $this->revision->getRevisionId(),
     ]);
     $this->messenger()->addMessage($this->t('Revision from %revision-date of AOP RSS Item %title has been deleted.', [
-      '%revision-date' => format_date($this->revision->getRevisionCreationTime()),
+      '%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()),
       '%title' => $this->revision->label(),
     ]));
     $form_state->setRedirect(
