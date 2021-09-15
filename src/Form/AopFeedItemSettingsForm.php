@@ -4,45 +4,51 @@ namespace Drupal\amazon_onsite\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 
 /**
- * Configuration form for an aop feed item entity type.
+ * Entity type settings form.
+ *
+ * @ingroup amazon_onsite
  */
 class AopFeedItemSettingsForm extends FormBase {
 
   /**
-   * {@inheritdoc}
+   * Returns a unique string identifying the form.
+   *
+   * @return string
+   *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'aop_feed_item_settings';
+    return 'aopitem_settings';
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function buildForm(array $form, FormStateInterface $form_state) {
-
-    $form['settings'] = [
-      '#markup' => $this->t('Settings form for an aop feed item entity type.'),
-    ];
-
-    $form['actions'] = [
-      '#type' => 'actions',
-    ];
-
-    $form['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Save'),
-    ];
-
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
+   * Form submission handler.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->messenger()->addStatus($this->t('The configuration has been updated.'));
+    // Empty implementation of the abstract submit class.
+  }
+
+  /**
+   * Defines the settings form for AOP RSS Item entities.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   Form definition array.
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['aopitem_settings']['#markup'] = 'Settings form for AOP RSS Item entities. Manage field settings here or hit the ' . Link::createFromRoute($this->t('module configuration page'), 'amazon_onsite.settings')->toString() . '.';
+    return $form;
   }
 
 }

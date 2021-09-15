@@ -11,7 +11,7 @@ amazon_onsite.settings:
 entity.aop_feed_item.settings:
   path: 'admin/structure/aop-feed-item'
   defaults:
-    _form: '\Drupal\amazon_onsite\Form\AopItemSettingsForm'
+    _form: '\Drupal\amazon_onsite\Form\AopFeedItemSettingsForm'
     _title: 'Amazon Onsite Publishing items'
   requirements:
     _permission: 'administer aop feed item'

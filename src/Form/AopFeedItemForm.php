@@ -15,7 +15,7 @@ class AopFeedItemForm extends ContentEntityForm {
    */
   public function save(array $form, FormStateInterface $form_state) {
 
-    $entity = $this->getEntity();
+    $entity = $this->entity;
     $result = $entity->save();
     $link = $entity->toLink($this->t('View'))->toRenderable();
 
@@ -32,6 +32,8 @@ class AopFeedItemForm extends ContentEntityForm {
     }
 
     $form_state->setRedirect('entity.aop_feed_item.canonical', ['aop_feed_item' => $entity->id()]);
+
+    return $result;
   }
 
 }

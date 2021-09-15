@@ -92,7 +92,7 @@ class AopFeedItemListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /** @var \Drupal\amazon_onsite\AopFeedItemInterface $entity */
+    /** @var \Drupal\amazon_onsite\Entity\AopFeedItem $entity */
     $row['id'] = $entity->id();
     $row['title'] = $entity->toLink();
     $row['status'] = $entity->isEnabled() ? $this->t('Enabled') : $this->t('Disabled');

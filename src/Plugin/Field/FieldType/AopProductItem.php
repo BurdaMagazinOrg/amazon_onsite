@@ -127,7 +127,7 @@ class AopProductItem extends FieldItemBase {
 
     $random = new Random();
 
-    $values['asin'] = $random->string(random_int(10));
+    $values['asin'] = $random->string(10, TRUE);
 
     $values['headline'] = $random->word(random_int(1, 255));
 
