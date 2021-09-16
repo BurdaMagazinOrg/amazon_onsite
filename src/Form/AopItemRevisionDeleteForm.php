@@ -36,12 +36,20 @@ class AopItemRevisionDeleteForm extends ConfirmFormBase {
   protected $connection;
 
   /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
     $instance->aopItemStorage = $container->get('entity_type.manager')->getStorage('aop_item');
     $instance->connection = $container->get('database');
+    $instance->dateFormatter = $container->get('date.formatter');
     return $instance;
   }
 
@@ -57,7 +65,7 @@ class AopItemRevisionDeleteForm extends ConfirmFormBase {
    */
   public function getQuestion() {
     return $this->t('Are you sure you want to delete the revision from %revision-date?', [
-      '%revision-date' => format_date($this->revision->getRevisionCreationTime()),
+      '%revision-date' => $this->dateFormatter->format($this->revision->getRevisionCreationTime()),
     ]);
   }
 
@@ -79,7 +87,7 @@ class AopItemRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $aop_item_revision = NULL) {
-    $this->revision = $this->AopItemStorage->loadRevision($aop_item_revision);
+    $this->revision = $this->aopItemStorage->loadRevision($aop_item_revision);
     $form = parent::buildForm($form, $form_state);
 
     return $form;
@@ -89,14 +97,14 @@ class AopItemRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->AopItemStorage->deleteRevision($this->revision->getRevisionId());
+    $this->aopItemStorage->deleteRevision($this->revision->getRevisionId());
 
     $this->logger('content')->notice('AOP RSS Item: deleted %title revision %revision.', [
       '%title' => $this->revision->label(),
       '%revision' => $this->revision->getRevisionId(),
     ]);
     $this->messenger()->addMessage($this->t('Revision from %revision-date of AOP RSS Item %title has been deleted.', [
-      '%revision-date' => format_date($this->revision->getRevisionCreationTime()),
+      '%revision-date' => $this->dateFormatter->format($this->revision->getRevisionCreationTime()),
       '%title' => $this->revision->label(),
     ]));
     $form_state->setRedirect(

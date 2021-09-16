@@ -4,6 +4,7 @@ namespace Drupal\amazon_onsite\Controller;
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\amazon_onsite\AopFeedItemInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -119,13 +120,13 @@ class AopItemController extends ControllerBase {
       // Use revision link to link to revisions that are not active.
       $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
       if ($vid != $aop_item->getRevisionId()) {
-        $link = $this->l($date, new Url('entity.aop_item.revision', [
+        $link = Link::fromTextAndUrl($date, new Url('entity.aop_item.revision', [
           'aop_item' => $aop_item->id(),
           'aop_item_revision' => $vid,
         ]));
       }
       else {
-        $link = $aop_item->link($date);
+        $link = $aop_item->toLink()->toString($date);
       }
 
       $row = [];
