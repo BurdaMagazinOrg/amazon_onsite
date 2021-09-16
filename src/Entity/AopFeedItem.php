@@ -262,6 +262,11 @@ class AopFeedItem extends RevisionableContentEntityBase {
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the aop feed item was last edited.'));
 
+    // Keep this field hidden until a revision UI is added.
+    $fields['revision_log']->setDisplayOptions('form', [
+      'region' => 'hidden',
+    ]);
+
     return $fields;
   }
 
