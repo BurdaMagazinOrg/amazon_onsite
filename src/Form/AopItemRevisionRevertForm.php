@@ -37,12 +37,20 @@ class AopItemRevisionRevertForm extends ConfirmFormBase {
   protected $dateFormatter;
 
   /**
+   * The time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
     $instance->aopItemStorage = $container->get('entity_type.manager')->getStorage('aop_item');
     $instance->dateFormatter = $container->get('date.formatter');
+    $instance->time = $container->get('datetime.time');
     return $instance;
   }
 
@@ -135,7 +143,7 @@ class AopItemRevisionRevertForm extends ConfirmFormBase {
   protected function prepareRevertedRevision(AopItemInterface $revision, FormStateInterface $form_state) {
     $revision->setNewRevision();
     $revision->isDefaultRevision(TRUE);
-    $revision->setRevisionCreationTime(\Drupal::time()->getRequestTime());
+    $revision->setRevisionCreationTime($this->time->getRequestTime());
 
     return $revision;
   }
