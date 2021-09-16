@@ -6,7 +6,9 @@ configure: amazon_onsite.settings
 core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:ckeditor
+  - drupal:editor
   - drupal:file
+  - drupal:filter
   - drupal:image
   - drupal:link
   - drupal:text

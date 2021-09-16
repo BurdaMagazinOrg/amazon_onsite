@@ -1,0 +1,65 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.amazon_onsite
+  module:
+    - ckeditor
+format: amazon_onsite
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatierung
+          items:
+            - Bold
+            - Italic
+            - Strike
+            - Superscript
+            - Subscript
+            - '-'
+            - RemoveFormat
+            - '-'
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+            - infinite_buttons
+            - InsertAsin
+        -
+          name: Listen
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Medien
+          items:
+            - Blockquote
+            - DrupalImage
+            - Table
+            - HorizontalRule
+        -
+          name: 'Block Formatting'
+          items:
+            - Format
+        -
+          name: Werkzeuge
+          items:
+            - ShowBlocks
+            - Source
+  plugins:
+    stylescombo:
+      styles: ''
+    language:
+      language_list: un
+image_upload:
+  status: true
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null
