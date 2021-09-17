@@ -7,7 +7,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\RevisionableContentEntityBase;
 use Drupal\Core\Field\BaseFieldDefinition;
-use Drupal\amazon_onsite\AopFeedItemInterface;
 use Drupal\user\UserInterface;
 
 /**
@@ -33,7 +32,7 @@ use Drupal\user\UserInterface;
  *   },
  *   base_table = "aop_feed_item",
  *   revision_table = "aop_feed_item_revision",
- *   show_revision_ui = TRUE,
+ *   show_revision_ui = FALSE,
  *   admin_permission = "access aop feed item overview",
  *   entity_keys = {
  *     "id" = "id",
@@ -56,7 +55,7 @@ use Drupal\user\UserInterface;
  *   field_ui_base_route = "entity.aop_feed_item.settings"
  * )
  */
-class AopFeedItem extends RevisionableContentEntityBase implements AopFeedItemInterface {
+class AopFeedItem extends RevisionableContentEntityBase {
 
   use EntityChangedTrait;
 
@@ -72,14 +71,23 @@ class AopFeedItem extends RevisionableContentEntityBase implements AopFeedItemIn
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the aop feed item title.
+   *
+   * @return string
+   *   Title of the aop feed item.
    */
   public function getTitle() {
     return $this->get('title')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the aop feed item title.
+   *
+   * @param string $title
+   *   The aop feed item title.
+   *
+   * @return \Drupal\amazon_onsite\Entity\AopFeedItem
+   *   The called aop feed item entity.
    */
   public function setTitle($title) {
     $this->set('title', $title);
@@ -87,14 +95,23 @@ class AopFeedItem extends RevisionableContentEntityBase implements AopFeedItemIn
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the aop feed item status.
+   *
+   * @return bool
+   *   TRUE if the aop feed item is enabled, FALSE otherwise.
    */
   public function isEnabled() {
     return (bool) $this->get('status')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the aop feed item status.
+   *
+   * @param bool $status
+   *   TRUE to enable this aop feed item, FALSE to disable.
+   *
+   * @return \Drupal\amazon_onsite\Entity\AopFeedItem
+   *   The called aop feed item entity.
    */
   public function setStatus($status) {
     $this->set('status', $status);
@@ -102,14 +119,23 @@ class AopFeedItem extends RevisionableContentEntityBase implements AopFeedItemIn
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the aop feed item creation timestamp.
+   *
+   * @return int
+   *   Creation timestamp of the aop feed item.
    */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
 
   /**
-   * {@inheritdoc}
+   * Sets the aop feed item creation timestamp.
+   *
+   * @param int $timestamp
+   *   The aop feed item creation timestamp.
+   *
+   * @return \Drupal\amazon_onsite\Entity\AopFeedItem
+   *   The called aop feed item entity.
    */
   public function setCreatedTime($timestamp) {
     $this->set('created', $timestamp);
@@ -235,6 +261,11 @@ class AopFeedItem extends RevisionableContentEntityBase implements AopFeedItemIn
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the aop feed item was last edited.'));
+
+    // Keep this field hidden until a revision UI is added.
+    $fields['revision_log']->setDisplayOptions('form', [
+      'region' => 'hidden',
+    ]);
 
     return $fields;
   }

@@ -2,7 +2,7 @@
 
 namespace Drupal\amazon_onsite\Controller;
 
-use Drupal\amazon_onsite\AopFeedItemInterface;
+use Drupal\amazon_onsite\Entity\AopFeedItem;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponse;
 use Drupal\Core\Controller\ControllerBase;
@@ -123,6 +123,7 @@ class RssController extends ControllerBase {
    */
   public function getLastBuildDate() {
     if ($items = $this->getItems()) {
+      /** @var \Drupal\amazon_onsite\Entity\AopFeedItem $latest_item */
       $latest_item = reset($items);
 
       return $this->dateFormatter->format($latest_item->getChangedTime(), 'custom', 'r');
@@ -149,7 +150,7 @@ class RssController extends ControllerBase {
       ->execute();
 
     if ($ids) {
-      return $storage->loadMultiple(array_keys($ids));
+      return $storage->loadMultiple($ids);
     }
 
     return [];
@@ -170,17 +171,18 @@ class RssController extends ControllerBase {
     // Query the entities.
     $items = $this->getItems();
     foreach ($items as $item) {
+      /** @var \Drupal\amazon_onsite\Entity\AopFeedItem $item */
       $elements = [
         'title' => $item->getTitle(),
-        'amzn:subtitle' => ($subtitle = $item->field_subtitle->first()) ? $subtitle->view() : NULL,
-        'link' => $item->field_url->first()->getUrl()->setAbsolute(TRUE),
+        'amzn:subtitle' => ($subtitle = $item->field_subtitle->first()) ? $subtitle->view() : NULL, /* @phpstan-ignore-line */
+        'link' => $item->field_url->first()->getUrl()->setAbsolute(TRUE), /* @phpstan-ignore-line */
         'pubDate' => $this->dateFormatter->format($item->getChangedTime(), 'custom', 'r'),
-        'author' => $item->field_author->first()->view(),
-        'content:encoded' => $item->field_content->first()->view(),
+        'author' => $item->field_author->first()->view(), /* @phpstan-ignore-line */
+        'content:encoded' => $item->field_content->first()->view(), /* @phpstan-ignore-line */
         'amzn:heroImage' => ($hero_image = $item->field_hero_image->entity) ? $hero_image->url() : NULL,
-        'amzn:heroImageCaption' => ($hero_image_caption = $item->field_hero_image_caption->first()) ? $hero_image_caption->view() : NULL,
-        'amzn:introText' => $item->field_intro_text->first()->view(),
-        'amzn:indexContent' => $item->field_index_content->first()->view(),
+        'amzn:heroImageCaption' => ($hero_image_caption = $item->field_hero_image_caption->first()) ? $hero_image_caption->view() : NULL, /* @phpstan-ignore-line */
+        'amzn:introText' => $item->field_intro_text->first()->view(), /* @phpstan-ignore-line */
+        'amzn:indexContent' => $item->field_index_content->first()->view(), /* @phpstan-ignore-line */
         'amzn:products' => $this->buildProductsforItem($item),
       ];
 
@@ -199,13 +201,13 @@ class RssController extends ControllerBase {
   /**
    * Build a render array for product part of rss feed.
    *
-   * @param \Drupal\amazon_onsite\AopFeedItemInterface $entity
+   * @param \Drupal\amazon_onsite\Entity\AopFeedItem $entity
    *   The entity object.
    *
    * @return array
    *   An array as expected by drupal_render().
    */
-  public function buildProductsforItem(AopFeedItemInterface $entity) {
+  public function buildProductsforItem(AopFeedItem $entity) {
     $build = [];
     foreach ($entity->field_products as $product) {
       $build[] = [

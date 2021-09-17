@@ -64,7 +64,9 @@ class AopProductWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function errorElement(array $element, ConstraintViolationInterface $violation, array $form, FormStateInterface $form_state) {
-    return isset($violation->arrayPropertyPath[0]) ? $element[$violation->arrayPropertyPath[0]] : $element;
+    // @see https://www.drupal.org/project/drupal/issues/2600790 ff.
+    $property_path_array = explode('.', $violation->getPropertyPath());
+    return isset($property_path_array[0]) ? $element[$property_path_array[0]] : $element;
   }
 
   /**
