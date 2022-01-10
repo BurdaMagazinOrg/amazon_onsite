@@ -179,7 +179,7 @@ class RssController extends ControllerBase {
         'pubDate' => $this->dateFormatter->format($item->getChangedTime(), 'custom', 'r'),
         'author' => $item->field_author->first()->view(), /* @phpstan-ignore-line */
         'content:encoded' => $item->field_content->first()->view(), /* @phpstan-ignore-line */
-        'amzn:heroImage' => ($hero_image = $item->field_hero_image->entity) ? $hero_image->url() : NULL,
+        'amzn:heroImage' => ($hero_image = $item->field_hero_image->entity) ? $hero_image->createFileUrl(FALSE) : NULL,
         'amzn:heroImageCaption' => ($hero_image_caption = $item->field_hero_image_caption->first()) ? $hero_image_caption->view() : NULL, /* @phpstan-ignore-line */
         'amzn:introText' => $item->field_intro_text->first()->view(), /* @phpstan-ignore-line */
         'amzn:indexContent' => $item->field_index_content->first()->view(), /* @phpstan-ignore-line */
