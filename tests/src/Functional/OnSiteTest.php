@@ -4,6 +4,7 @@ namespace Drupal\Tests\amazon_onsite\Functional;
 
 use Drupal\amazon_onsite\Entity\AopFeedItem;
 use Drupal\Core\Url;
+use Drupal\file\Entity\File;
 use Drupal\Tests\BrowserTestBase;
 
 /**
@@ -55,12 +56,18 @@ class OnSiteTest extends BrowserTestBase {
 
     $this->drupalLogin($this->anonymousUser);
 
+    $file = File::create([
+      'uri' => 'http://example.com/test-image.jpg',
+    ]);
+    $file->save();
+
     AopFeedItem::create([
       'title' => 'Bacon ipsum',
       'field_url' => 'http://example.com/bacon',
       'field_author' => 'Bernd am Grill',
       'field_content' => 'Bacon ipsum dolor amet chuck tenderloin sirloin, chicken tail kevin doner meatball jerky landjaeger jowl alcatra.',
       'field_intro_text' => 'Capicola biltong leberkas hamburger.',
+      'field_hero_image' => $file->id(),
       'changed' => \DateTime::createFromFormat('Y-m-d H:i:s', '2020-08-19 10:00:00')->getTimestamp(),
       'field_products' => [
         [
